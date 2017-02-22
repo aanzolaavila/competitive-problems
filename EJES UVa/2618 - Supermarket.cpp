@@ -35,15 +35,32 @@ int main() {
 	    scanf("%d%lf", nums+i, prices+i);
 	}
 
-	loop(i, 0, m) {
-	    loop(j, 0, n) {
+	loop(i, 0, m+1) {
+	    loop(j, 0, n+1) {
 		mem[i][j] = -INF;
 	    }
 	}
+
+	/*loop(i, 0, m) {
+	  printf("%d ", jones[i]);
+	}
+	puts("");
+
+	loop(i, 0, n) {
+	  printf("(%d %lf) ", nums[i], prices[i]);
+	  }*/
 	
-	double mi = rec(m-1, n-1);
+	double mi = rec(0,0);
+	/*loop(i, 0, m+1) {
+	    loop(j, 0, n+1) {
+	      printf("%.2lf ", mem[i][j]);
+	    }
+	    puts("");
+	    }*/
+	
+	//double mi = calc();
 	if (mi < INF) {
-	    printf("%.2lf\n", m);
+	    printf("%.2lf\n", mi);
 	} else {
 	    puts("Impossible");
 	}
@@ -70,21 +87,13 @@ void print_rows() {
 
 
 double rec(int i, int j) {
-    printf("(%d %d)\n", i, j);
-    //if (mem[i][j] >= 0.0) return mem[i][j];
-    double &mi = mem[i][j];
-    if (i == 0 && j == 0) return nums[j] == jones[i] ?  prices[j] : INF;
-    if (j == 0) return INF;
-    if (j < 0 || i < 0) return INF;
+  double &mi = mem[i][j];
+  if (/*mem[i][j] != 0.0 &&*/ mi != -INF) return mi;
+  
+  if (i == m) return mi = 0.0;
+  if (j >= n) return mi = INF;
 
-    if (nums[j] == jones[i]) {
-	printf("Si %lf\n", prices[j]);
-	return mi = min(prices[j] + rec(i-1, j-1), rec(i, j-1));
-    } else {
-	mi = rec(i, j-1);
-	printf("No (%lf)\n", mi);
-	return mi;
-    }
+  return mi = nums[j] == jones[i] ? min(prices[j] + rec(i+1, j+1), rec(i, j+1)) : rec(i, j+1);
 }
 
 double calc() {
@@ -94,21 +103,7 @@ double calc() {
     memset(row1, 0, sizeof(row1));
     memset(row2, 0, sizeof(row2));
 
-    int i, j;
-    loop(i, 1, m) {
-	actual[0] = INF;
-	//prev[0] = 0;
-	loop(j, 1, n) {
-	    if (jones[i] == nums[j]) {
-		actual[j] = min(prices[j] + prev[j-1], actual[j-1]);
-	    } else {
-		actual[j] = actual[j-1];
-	    }
-	}
-	print_rows();
-	printf("%p %p\n", actual, prev);
-	swap(actual, prev);
-    }
-    
+    //for(int )
+
     return prev[n-1];
 }
