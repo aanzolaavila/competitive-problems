@@ -29,6 +29,54 @@
 #define dprintf(...) /**/
 #endif
 
+#define SZ 1000
+
 using namespace std;
 
-int main() { return 0; }
+int main() {
+  char buff[SZ];
+
+  int N;
+  scanf("%d\n", &N);
+
+  vector<string> names;
+  names.reserve(N);
+
+  while (N--) {
+    fgets(buff, SZ, stdin);
+    int l = strlen(buff);
+    if (buff[l - 1] == '\n') {
+      buff[l - 1] = '\0';
+    }
+    dprintf("%s\n", buff);
+    names.PB(string(buff));
+  }
+
+#ifdef DEBUG
+  printf("len(names) = %ld\n", names.size());
+#endif
+
+  bool increasing = true;
+  bool decreasing = true;
+
+  int i;
+  LOOP(i, 0, names.size() - 1) {
+    string &a = names[i];
+    string &b = names[i + 1];
+    if (a < b) {
+      decreasing = false;
+    } else if (b < a) {
+      increasing = false;
+    }
+  }
+
+  if (increasing) {
+    printf("INCREASING\n");
+  } else if (decreasing) {
+    printf("DECREASING\n");
+  } else {
+    printf("NEITHER\n");
+  }
+
+  return 0;
+}

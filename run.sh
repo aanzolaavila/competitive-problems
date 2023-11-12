@@ -37,6 +37,9 @@ function test() {
   local infile=$3
   local outfile=$4
 
+  rm -f ${ENV_DIR}/infile
+  rm -f ${ENV_DIR}/outfile
+
   if [ -n "${infile}" ]; then
 	cp "${basedir}/${infile}" "${ENV_DIR}/infile"
   fi
@@ -70,7 +73,7 @@ function test() {
 
   if [ -f "outfile" ]; then
   	echo ">>>>>>>> DIFFERENCE: <<<<<<<<"
-	diff "${outfile}" output
+	diff "outfile" output
   fi
   popd
 }
