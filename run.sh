@@ -34,19 +34,9 @@ function build() {
 function test() {
   local language=$1
   local basedir=$2
-  local infile=$3
-  local outfile=$4
 
-  rm -f ${ENV_DIR}/infile
-  rm -f ${ENV_DIR}/outfile
-
-  if [ -n "${infile}" ]; then
-	cp "${basedir}/${infile}" "${ENV_DIR}/infile"
-  fi
-
-  if [ -n "${outfile}" ]; then
-	cp "${basedir}/${outfile}" "${ENV_DIR}/outfile"
-  fi
+  cp "${basedir}"/*.in "${ENV_DIR}"
+  cp "${basedir}"/*.ou "${ENV_DIR}"
 
   case ${language} in
   	cpp)
@@ -64,17 +54,21 @@ function test() {
   esac
 
   pushd ${ENV_DIR}
-  if [ -f "infile" ]; then
-	"${runcmd[@]}" < infile | tee output
+
+  if ls *.in; then
+  	for in in *.in; do
+  	  name=$(basename -s .in "$in")
+  	  printf "\nTEST: %s\n" "${in}"
+	  "${runcmd[@]}" < "$in" | tee output
+	  if [ -f "${name}.ou" ]; then
+		diff output "${name}.ou"
+	  fi
+	done
   else
   	echo "Help: To insert EOF do [Unix] Ctrl + D"
 	"${runcmd[@]}" < /dev/stdin | tee output
   fi
 
-  if [ -f "outfile" ]; then
-  	echo ">>>>>>>> DIFFERENCE: <<<<<<<<"
-	diff "outfile" output
-  fi
   popd
 }
 
