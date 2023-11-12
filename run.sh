@@ -75,11 +75,9 @@ function test() {
 judge="$1"
 problem="$2"
 language="$3"
-infile="$4"
-outfile="$5"
 
 basedir="${judge}/${problem}"
 mkdir -p "${ENV_DIR}"
 
 build "${language}" "${basedir}"
-test "${language}" "${basedir}" "${infile}" "${outfile}"
+test "${language}" "${basedir}"
