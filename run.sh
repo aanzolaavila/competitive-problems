@@ -17,7 +17,7 @@ function build() {
 	cpp)
 	  cp "stdc++.h" "${ENV_DIR}"
 	  cp "${filename}" "${destdir}/solution.cpp"
-	  g++ "${destdir}/solution.cpp" -o ${ENV_DIR}/solution
+	  g++ -w "${destdir}/solution.cpp" -o ${ENV_DIR}/solution
 	  ;;
 
 	py)
