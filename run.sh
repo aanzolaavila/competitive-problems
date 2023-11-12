@@ -15,7 +15,6 @@ function build() {
 
   case ${language} in
 	cpp)
-	  cp "stdc++.h" "${ENV_DIR}"
 	  cp "${filename}" "${destdir}/solution.cpp"
 	  g++ -w "${destdir}/solution.cpp" -o ${ENV_DIR}/solution
 	  ;;
@@ -55,7 +54,7 @@ function test() {
 
   pushd ${ENV_DIR}
 
-  if ls *.in; then
+  if ls *.in >/dev/null; then
   	for in in *.in; do
   	  name=$(basename -s .in "$in")
   	  printf "\nTEST: %s\n" "${in}"
