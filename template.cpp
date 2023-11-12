@@ -18,6 +18,7 @@
 #define DEC(v, n) (v = ((v) + (n)-1) % (n))
 #define INC(v, n) (v = ((v) + 1) % (n))
 #define LOOP(i, ii, ff) for (i = (ii); i < (ff); i++)
+#define LSOne(i) ((i) & -(i))
 
 // #define DEBUG
 #ifdef DEBUG
