@@ -1,7 +1,5 @@
 #!/bin/bash
 
-set -e
-
 ENV_DIR="playground"
 
 function build() {
