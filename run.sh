@@ -56,7 +56,9 @@ function test() {
   	for in in *.in; do
   	  name=$(basename -s .in "$in")
   	  printf "\nTEST: %s\n" "${in}"
+  	  set +e
 	  "${runcmd[@]}" < "$in" | tee output
+  	  set -e
 	  if [ -f "${name}.ou" ]; then
 		diff "${name}.ou" output
 	  fi
