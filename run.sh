@@ -58,7 +58,7 @@ function test() {
   	  printf "\nTEST: %s\n" "${in}"
 	  "${runcmd[@]}" < "$in" | tee output
 	  if [ -f "${name}.ou" ]; then
-		diff output "${name}.ou"
+		diff "${name}.ou" output
 	  fi
 	done
   else

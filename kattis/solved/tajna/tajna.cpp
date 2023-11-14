@@ -20,7 +20,7 @@
 #define LOOP(i, ii, ff) for (i = (ii); i < (ff); i++)
 #define LSOne(i) ((i) & -(i))
 
-#define DEBUG
+// #define DEBUG
 #ifdef DEBUG
 #define dprintf(...)                                                           \
   do {                                                                         \
@@ -30,6 +30,59 @@
 #define dprintf(...) /**/
 #endif
 
+#define SZ 200
+
 using namespace std;
 
-int main() { return 0; }
+typedef long long ll;
+
+int main() {
+  char buff[SZ];
+  fgets(buff, SZ, stdin);
+  int len = strlen(buff);
+  if (buff[len - 1] == '\n') {
+    buff[--len] = '\0';
+  }
+
+  dprintf("s: %s\n", buff);
+
+  int r = 1, c = len;
+
+  for (int i = 2; i < len; i++) {
+    if (len % i == 0 && i <= (len / i)) {
+      r = i;
+      c = len / i;
+      assert(len == c * i);
+    }
+  }
+
+  swap(r, c);
+
+  dprintf("r: %d c: %d\n", r, c);
+
+  char ans[SZ][SZ];
+
+  int pos = 0;
+  for (int i = 0; i < r; i++) {
+    for (int j = 0; j < c; j++) {
+      ans[i][j] = buff[pos++];
+    }
+  }
+  assert(pos == len);
+
+  char res[SZ];
+  pos = 0;
+  for (int j = 0; j < c; j++) {
+    for (int i = 0; i < r; i++) {
+      res[pos++] = ans[i][j];
+    }
+  }
+  assert(pos == len);
+  res[pos] = '\0';
+
+  dprintf("pos: %d\n", pos);
+
+  printf("%s\n", res);
+
+  return 0;
+}
