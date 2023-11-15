@@ -1,4 +1,9 @@
+#ifdef __APPLE__
+#include "../../stdc++.h"
+#else
 #include <bits/stdc++.h>
+#endif
+
 #define loop(it, x, y) for(it = x; it < y; ++it)
 #define SZ (1 << 18)
 #define MP make_pair
@@ -67,7 +72,7 @@ bool check(large n, large m) {
     if (n < 3) {
 	return fact(n) % m == 0;
     }
-    
+
     factors.clear();
     int i = 0;
     while(m > 1 && i < primes.size()) {
@@ -107,6 +112,6 @@ int main() {
 	    printf("%lld does not divide %lld!\n", m, n);
 	}
     }
-    
+
     return 0;
 }
