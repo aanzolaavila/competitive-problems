@@ -11,10 +11,11 @@ function build() {
   local destdir="${ENV_DIR}/problem"
   mkdir -p "${destdir}"
 
+  set -e
   case ${language} in
 	cpp)
 	  cp "${filename}" "${destdir}/solution.cpp"
-	  g++ -w "${destdir}/solution.cpp" -o ${ENV_DIR}/solution
+	  g++ -std=c++11 -w "${destdir}/solution.cpp" -o ${ENV_DIR}/solution
 	  ;;
 
 	py)
@@ -26,6 +27,7 @@ function build() {
 	  exit 1
 	  ;;
   esac
+  set +e
 }
 
 function test() {
@@ -56,9 +58,9 @@ function test() {
   	for in in *.in; do
   	  name=$(basename -s .in "$in")
   	  printf "\nTEST: %s\n" "${in}"
-  	  set +e
-	  "${runcmd[@]}" < "$in" | tee output
   	  set -e
+	  "${runcmd[@]}" < "$in" | tee output
+  	  set +e
 	  if [ -f "${name}.ou" ]; then
 		diff "${name}.ou" output
 	  fi
