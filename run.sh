@@ -78,6 +78,7 @@ problem="$2"
 language="$3"
 
 basedir="${judge}/${problem}"
+rm -rf "${ENV_DIR}"
 mkdir -p "${ENV_DIR}"
 
 build "${language}" "${basedir}"
