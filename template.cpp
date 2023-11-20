@@ -20,8 +20,8 @@
 #define LOOP(i, ii, ff) for (i = (ii); i < (ff); i++)
 #define LSOne(i) ((i) & -(i))
 
-#define DEBUG
-#ifdef DEBUG
+// #define NDEBUG
+#ifndef NDEBUG
 #define dprintf(...)                                                           \
   do {                                                                         \
     fprintf(stderr, "DEBUG: " __VA_ARGS__);                                    \
