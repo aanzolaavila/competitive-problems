@@ -22,6 +22,11 @@ function build() {
 	  cp "${filename}" ${ENV_DIR}/solution.py
 	  ;;
 
+	rs)
+	  cp "${filename}" "${destdir}/solution.rs"
+	  rustc "${destdir}/solution.rs" -o ${ENV_DIR}/solution
+	  ;;
+
 	*)
 	  echo "${language} is not supported"
 	  exit 1
@@ -39,6 +44,10 @@ function test() {
 
   case ${language} in
   	cpp)
+	  local runcmd=(./solution)
+  	  ;;
+
+  	rs)
 	  local runcmd=(./solution)
   	  ;;
 
