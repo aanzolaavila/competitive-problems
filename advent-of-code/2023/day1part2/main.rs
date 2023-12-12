@@ -43,9 +43,7 @@ const NUMBERS: [&'static str; 9] = [
     "one", "two", "three", "four", "five", "six", "seven", "eight", "nine",
 ];
 
-fn get_number(input: &String, idx: usize) -> Option<u32> {
-    let b = input.as_bytes();
-
+fn get_number(b: &[u8], idx: usize) -> Option<u32> {
     {
         let c = b[idx] as char;
         if c.is_ascii_digit() {
@@ -55,7 +53,7 @@ fn get_number(input: &String, idx: usize) -> Option<u32> {
 
     for (i, num) in NUMBERS.iter().enumerate() {
         let l = num.len();
-        if idx + l <= input.len() && b[idx..idx + l] == *num.as_bytes() {
+        if idx + l <= b.len() && b[idx..idx + l] == *num.as_bytes() {
             return Some(i as u32 + 1);
         }
     }
@@ -69,7 +67,7 @@ fn proc(input: &String) -> u32 {
 
     let mut i = 0;
     while i < input.len() {
-        if let Some(n) = get_number(input, i) {
+        if let Some(n) = get_number(input.as_bytes(), i) {
             if a.is_none() {
                 a = Some(n);
             }
